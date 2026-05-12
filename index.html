@@ -1,0 +1,111 @@
+<!Doctype html>
+<html>
+    <head>
+        <title>Internal Marks Calculator</title>
+        <style>
+            body{
+                font-family: Arial, Helvetica, sans-serif;
+                text-align: center;
+            }
+            .box{
+                background-color: #fff;
+                padding: 20px;
+                width: 400px;
+                margin: auto;
+                border-radius: 5px;
+                box-shadow: 0 0 10px gray;
+            }
+            .input-bar {
+                width: 100%;          /* full width */
+                height: 30px;         /* tall like a bar */
+                font-size: 16px;
+                padding: 8px;
+                box-sizing: border-box;
+}
+        </style>
+    </head>
+    <body>
+        <h2>Internal Marks Calculator</h2>
+        <div class = "box">
+            <input class = "input-bar" id = "AAT1" type = "number" max = "10" placeholder = "Enter AAT1 marks" width = "800px"><br><br>
+            <input class = "input-bar" id = "AAT2" type = "number" max = "10" placeholder = "Enter AAT2 marks"><br><br>
+            <input class = "input-bar" id = "MID1" type = "number" max = "30" placeholder = "Enter MID1 marks"><br><br>
+            <input class = "input-bar" id = "MID2" type = "number" max = "30" placeholder = "Enter MID2 marks"><br><br>
+            <input class = "input-bar" id = "ATT" type = "number" max = "100" placeholder = "Enter Attendance %"><br><br>
+            <button onclick = "MyCalc()">Submit</button>
+            <h5 id = "output"></h5>
+            <p style="margin-top: 30px; font-size: 16px; color: #555; font-weight: bold;">✨ Created by Kamal ✨</p>
+        </div>
+        <script>
+            function MyCalc()
+            {
+                let aat1 = document.getElementById("AAT1").value;
+                let aat2 = document.getElementById("AAT2").value;
+                let mid1 = document.getElementById("MID1").value;
+                let mid2 = document.getElementById("MID2").value;
+                let att = document.getElementById("ATT").value;
+                let attmarks;
+
+                if (aat1 === "" || aat2 === "" || mid1 === "" || mid2 === "" || att === "") {
+                    alert("Please fill all fields!");
+                    return;
+                }
+
+                aat1 = Number(aat1);
+                aat2 = Number(aat2);
+                mid1 = Number(mid1);
+                mid2 = Number(mid2);
+                att = Number(att);
+
+                if (aat1 < 0 || aat1 > 10 || aat2 < 0 || aat2 > 10 ){
+                    alert("AAT marks must be between 0 and 10");
+                    return;
+                }
+                
+                if (mid1 < 0 || mid1 > 30 || mid2 < 0 || mid2 > 30) {
+                    alert("MID marks must be between 0 and 30");
+                    return;
+                }
+
+                if (att < 0 || att > 100) {
+                    alert("Attendance must be between 0 and 100");
+                    return;
+                }
+                let avg = (aat1 + aat2) / 2;
+                let aat = (avg / 10) * 15;
+                let mid_marks;
+                if (mid1 > mid2){
+                    mid1 = mid1 * 0.75;
+                    mid2 = mid2 * 0.25;
+                    mid_marks = mid1 + mid2;
+                }
+                else{
+                    mid2 = mid2 * 0.75;
+                    mid1 = mid1 * 0.25;
+                    mid_marks = mid1 + mid2;
+                }
+                let mid = (mid_marks / 30) * 20;
+
+                if(att >= 90 && att <= 100){
+                    attmarks = 5;
+                }
+                else if(att >= 85 && att < 90){
+                    attmarks = 4;
+                }
+                else if(att >= 80 && att < 85){
+                    attmarks = 3;
+                }
+                else if(att >= 75 && att < 80){
+                    attmarks = 2;
+                }
+                else{
+                    attmarks = 0;
+                }
+
+                let total = aat + mid + attmarks;
+                document.getElementById("output").innerText = "Total Internal Marks: " + total.toFixed(2);
+            }
+
+        </script>
+    </body>
+</html>
