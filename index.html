@@ -1,111 +1,253 @@
-<!Doctype html>
+```html
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>Internal Marks Calculator</title>
-        <style>
-            body{
-                font-family: Arial, Helvetica, sans-serif;
-                text-align: center;
-            }
-            .box{
-                background-color: #fff;
-                padding: 20px;
-                width: 400px;
-                margin: auto;
-                border-radius: 5px;
-                box-shadow: 0 0 10px gray;
-            }
-            .input-bar {
-                width: 100%;          /* full width */
-                height: 30px;         /* tall like a bar */
-                font-size: 16px;
-                padding: 8px;
-                box-sizing: border-box;
-}
-        </style>
-    </head>
-    <body>
-        <h2>Internal Marks Calculator</h2>
-        <div class = "box">
-            <input class = "input-bar" id = "AAT1" type = "number" max = "10" placeholder = "Enter AAT1 marks" width = "800px"><br><br>
-            <input class = "input-bar" id = "AAT2" type = "number" max = "10" placeholder = "Enter AAT2 marks"><br><br>
-            <input class = "input-bar" id = "MID1" type = "number" max = "30" placeholder = "Enter MID1 marks"><br><br>
-            <input class = "input-bar" id = "MID2" type = "number" max = "30" placeholder = "Enter MID2 marks"><br><br>
-            <input class = "input-bar" id = "ATT" type = "number" max = "100" placeholder = "Enter Attendance %"><br><br>
-            <button onclick = "MyCalc()">Submit</button>
-            <h5 id = "output"></h5>
-            <p style="margin-top: 30px; font-size: 16px; color: #555; font-weight: bold;">✨ Created by Kamal ✨</p>
-        </div>
-        <script>
-            function MyCalc()
-            {
-                let aat1 = document.getElementById("AAT1").value;
-                let aat2 = document.getElementById("AAT2").value;
-                let mid1 = document.getElementById("MID1").value;
-                let mid2 = document.getElementById("MID2").value;
-                let att = document.getElementById("ATT").value;
-                let attmarks;
+<head>
+    <title>Internal Marks Calculator</title>
 
-                if (aat1 === "" || aat2 === "" || mid1 === "" || mid2 === "" || att === "") {
-                    alert("Please fill all fields!");
-                    return;
-                }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-                aat1 = Number(aat1);
-                aat2 = Number(aat2);
-                mid1 = Number(mid1);
-                mid2 = Number(mid2);
-                att = Number(att);
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #141e30, #243b55);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-                if (aat1 < 0 || aat1 > 10 || aat2 < 0 || aat2 > 10 ){
-                    alert("AAT marks must be between 0 and 10");
-                    return;
-                }
-                
-                if (mid1 < 0 || mid1 > 30 || mid2 < 0 || mid2 > 30) {
-                    alert("MID marks must be between 0 and 30");
-                    return;
-                }
+        .box {
+            background: white;
+            padding: 35px;
+            width: 100%;
+            max-width: 420px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
 
-                if (att < 0 || att > 100) {
-                    alert("Attendance must be between 0 and 100");
-                    return;
-                }
-                let avg = (aat1 + aat2) / 2;
-                let aat = (avg / 10) * 15;
-                let mid_marks;
-                if (mid1 > mid2){
-                    mid1 = mid1 * 0.75;
-                    mid2 = mid2 * 0.25;
-                    mid_marks = mid1 + mid2;
-                }
-                else{
-                    mid2 = mid2 * 0.75;
-                    mid1 = mid1 * 0.25;
-                    mid_marks = mid1 + mid2;
-                }
-                let mid = (mid_marks / 30) * 20;
+        h2 {
+            color: #243b55;
+            margin-bottom: 25px;
+            font-size: 26px;
+        }
 
-                if(att >= 90 && att <= 100){
-                    attmarks = 5;
-                }
-                else if(att >= 85 && att < 90){
-                    attmarks = 4;
-                }
-                else if(att >= 80 && att < 85){
-                    attmarks = 3;
-                }
-                else if(att >= 75 && att < 80){
-                    attmarks = 2;
-                }
-                else{
-                    attmarks = 0;
-                }
+        .input-bar {
+            width: 100%;
+            height: 45px;
+            font-size: 16px;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            transition: 0.3s;
+        }
 
-                let total = aat + mid + attmarks;
-                document.getElementById("output").innerText = "Total Internal Marks: " + total.toFixed(2);
+        .input-bar:focus {
+            border-color: #243b55;
+            box-shadow: 0 0 5px rgba(36, 59, 85, 0.3);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            background: linear-gradient(135deg, #141e30, #243b55);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(36, 59, 85, 0.3);
+        }
+
+        #output {
+            margin-top: 25px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #243b55;
+        }
+
+        #message {
+            margin-top: 15px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .success {
+            color: #16a34a;
+        }
+
+        .warning {
+            color: #dc2626;
+        }
+
+        .creator {
+            margin-top: 30px;
+            font-size: 15px;
+            color: #777;
+            font-weight: bold;
+        }
+
+        @media (max-width: 480px) {
+            .box {
+                padding: 25px 20px;
             }
 
-        </script>
-    </body>
+            h2 {
+                font-size: 23px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+
+        <h2>📚 Internal Marks Calculator</h2>
+
+        <input class="input-bar" id="AAT1"
+               type="number" min="0" max="10"
+               placeholder="Enter AAT1 marks">
+        <br><br>
+
+        <input class="input-bar" id="AAT2"
+               type="number" min="0" max="10"
+               placeholder="Enter AAT2 marks">
+        <br><br>
+
+        <input class="input-bar" id="MID1"
+               type="number" min="0" max="30"
+               placeholder="Enter MID1 marks">
+        <br><br>
+
+        <input class="input-bar" id="MID2"
+               type="number" min="0" max="30"
+               placeholder="Enter MID2 marks">
+        <br><br>
+
+        <input class="input-bar" id="ATT"
+               type="number" min="0" max="100"
+               placeholder="Enter Attendance %">
+        <br><br>
+
+        <button onclick="MyCalc()">Calculate Marks 🚀</button>
+
+        <h5 id="output"></h5>
+
+        <p id="message"></p>
+
+        <p class="creator">✨ Created by Kamal ✨</p>
+
+    </div>
+
+    <script>
+        function MyCalc() {
+
+            let aat1 = document.getElementById("AAT1").value;
+            let aat2 = document.getElementById("AAT2").value;
+            let mid1 = document.getElementById("MID1").value;
+            let mid2 = document.getElementById("MID2").value;
+            let att = document.getElementById("ATT").value;
+
+            let output = document.getElementById("output");
+            let message = document.getElementById("message");
+
+            if (
+                aat1 === "" || aat2 === "" ||
+                mid1 === "" || mid2 === "" ||
+                att === ""
+            ) {
+                alert("Please fill all fields!");
+                return;
+            }
+
+            aat1 = Number(aat1);
+            aat2 = Number(aat2);
+            mid1 = Number(mid1);
+            mid2 = Number(mid2);
+            att = Number(att);
+
+            if (
+                aat1 < 0 || aat1 > 10 ||
+                aat2 < 0 || aat2 > 10
+            ) {
+                alert("AAT marks must be between 0 and 10!");
+                return;
+            }
+
+            if (
+                mid1 < 0 || mid1 > 30 ||
+                mid2 < 0 || mid2 > 30
+            ) {
+                alert("MID marks must be between 0 and 30!");
+                return;
+            }
+
+            if (att < 0 || att > 100) {
+                alert("Attendance must be between 0 and 100!");
+                return;
+            }
+
+            // Calculate AAT marks
+            let avg = (aat1 + aat2) / 2;
+            let aat = (avg / 10) * 15;
+
+            // Calculate MID marks
+            let midMarks;
+
+            if (mid1 > mid2) {
+                midMarks = (mid1 * 0.75) + (mid2 * 0.25);
+            } else {
+                midMarks = (mid2 * 0.75) + (mid1 * 0.25);
+            }
+
+            let mid = (midMarks / 30) * 20;
+
+            // Calculate attendance marks
+            let attmarks;
+
+            if (att >= 90) {
+                attmarks = 5;
+            } else if (att >= 85) {
+                attmarks = 4;
+            } else if (att >= 80) {
+                attmarks = 3;
+            } else if (att >= 75) {
+                attmarks = 2;
+            } else {
+                attmarks = 0;
+            }
+
+            // Calculate total
+            let total = aat + mid + attmarks;
+
+            output.innerText =
+                "Total Internal Marks: " + total.toFixed(2);
+
+            // Display a message based on total marks
+            if (total > 20) {
+                message.innerText = "🎉 Easy Game!";
+                message.className = "success";
+            } else {
+                message.innerText = "😂 Chadhuvukondii Firstuuuu!";
+                message.className = "warning";
+            }
+        }
+    </script>
+
+</body>
 </html>
+```
